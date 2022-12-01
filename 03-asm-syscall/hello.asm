@@ -1,7 +1,7 @@
     bits 64
     default rel
     
-    global _start           ; function main() is exported
+    global _start           ; symbol _start is exported - program entry point
 
     section .text
 _start:                     
