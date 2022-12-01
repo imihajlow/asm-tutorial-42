@@ -16,7 +16,7 @@ _start:
     mov rdi, [rsp + 16]  ; rdi = pointer to the first argument
     call atol
 
-    inc rax
+    inc rax          ; Do something interesting with the number
 
     sub rsp, 32      ; allocate 32 bytes on stack
     mov rdi, rax     ; first parameter - number to convert
