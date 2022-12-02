@@ -12,18 +12,22 @@ _start:
     cmp eax, 1
     jle no_args
 
+    ; Convert the string supplied as an argument to integer
     ; pointers to the arguments start from [rsp + 8]
-    mov rdi, [rsp + 16]  ; rdi = pointer to the first argument
+    mov rdi, [rsp + 16]  ; rdi = pointer to the first argument (argv[1])
     call atol
 
-    inc rax          ; Do something interesting with the number
+    ; Do something interesting with the number
+    inc rax          
 
+    ; Convert the number to string
     sub rsp, 32      ; allocate 32 bytes on stack
     mov rdi, rax     ; first parameter - number to convert
     mov rsi, rsp     ; second parameter - pointer to buffer
     call ltoa
 
 
+    ; Print the string
     mov rdx, rax     ; third parameter - length
     mov eax, 1       ; syscall number 1 - write
     mov edi, 1       ; first parameter - file descriptor 1 - stdout
@@ -39,12 +43,12 @@ _start:
 
     ; Error handlers
 no_args:
-    lea rsi, [str_no_args]      ; second parameter - string buffer
+    mov rsi, str_no_args        ; second parameter - string buffer
     mov edx, str_no_args_len    ;  third parameter - string length
     jmp write_and_die
 
 overflow:
-    lea rsi, [str_overflow]      ; second parameter - string buffer
+    mov rsi, str_overflow        ; second parameter - string buffer
     mov edx, str_overflow_len    ;  third parameter - string length
 
     ; Common code for printing a message and exiting with code 1
@@ -155,10 +159,8 @@ ltoa:
 
     section .rodata
 str_overflow: db "Overflow!", 10
-str_overflow_end:
-str_overflow_len equ str_overflow_end - str_overflow
+str_overflow_len equ $ - str_overflow
 
 
 str_no_args: db "No arguments are given", 10
-str_no_args_end:
-str_no_args_len equ str_no_args_end - str_no_args
+str_no_args_len equ $ - str_no_args

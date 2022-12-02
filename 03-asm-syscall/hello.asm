@@ -8,7 +8,7 @@ _start:
     ; syscall number 1 - write()
     mov eax, 1            ;   syscall number in RAX - long number      64 bits
     mov edi, 1            ;  first parameter in EDI - int fd           32 bits
-    lea rsi, [hello]      ; second parameter in RSI - const void *buf  64 bits
+    mov rsi, hello        ; second parameter in RSI - const void *buf  64 bits
     mov edx, hello_len    ;  third parameter in RDX - size_t count     64 bits
     syscall
 
@@ -20,6 +20,4 @@ _start:
     section .rodata
 hello:
     db "Hello from pure ASM", 10
-hello_end:
-
-hello_len equ hello_end - hello
+hello_len equ $ - hello
