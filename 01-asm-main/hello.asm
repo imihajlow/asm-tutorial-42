@@ -1,8 +1,8 @@
     bits 64
     default rel
     
-    global main           ; function main() is exported
-    extern write          ; function write() is imported
+    global main           ; symbol main is exported
+    extern write          ; symbol write is imported
 
     section .text
 main:                     
