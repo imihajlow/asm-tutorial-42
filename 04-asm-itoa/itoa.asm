@@ -150,7 +150,7 @@ ltoa:
     ret
 
 .zero:
-    mov [rsi], word 0030h      ; Store two bytes - 0x30 and 0x00 to the buffer
+    mov [rsi], word 0x0030      ; Store two bytes - 0x30 and 0x00 to the buffer
     mov eax, 1                 ; Return 1 - the length of the string
     ret
     ; end of function
